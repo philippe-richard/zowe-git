@@ -2,21 +2,28 @@ pipeline {
     agent any
     stages {
         stage('---credentials---') {
+		environment {
+              SCRIPT = "./zowe_submit_cred.sh"
+              CREDENTIALS = credentials('zowe-credentials')
+					}
             steps {
-                sh "echo 'Providing credentials to zowe mainframe'"
-				sh "zowe_submit_cred.sh"
+			 timeout(time: 2, unit: 'MINUTES') {
+                    echo 'Setup Profile Credentials'
+				    echo 'Providing credentials to zowe mainframe'
+				sh "chmod +x $SCRIPT && $SCRIPT"
 		            }
+			  }
         }
         stage('--submit job--') {
             steps {
                 sh "echo 'submitting job to mainframe via zowe'"
-				sh "zowe_submit_job.sh"
+				sh "chmod +x zowe_submit_job.sh && zowe_submit_job.sh"
 		            }
         }
         stage('--Show job output--') {
 		  steps {
             sh "echo 'Showing mainframe job output via zowe'"
-			sh "zowe_submit_output.sh"
+			sh "chmod +x zowe_submit_output.sh && zowe_submit_output.sh"
             }
         }
     }
