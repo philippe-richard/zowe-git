@@ -16,16 +16,22 @@ pipeline {
 			  }
         }
         stage('--submit job--') {
+		environment {
+              SCRIPT = "./zowe_submit_job.sh"
+              		}
             steps {
                 sh "echo 'submitting job to mainframe via zowe'"
-				sh "chmod +x zowe_submit_job1.sh && zowe_submit_job1.sh"
-		            }
+				sh "chmod +x $SCRIPT && $SCRIPT"
+		          }
         }
         stage('--Show job output--') {
+		environment {
+              SCRIPT = "./zowe_submit_job.sh"
+              		}
 		  steps {
             sh "echo 'Showing mainframe job output via zowe'"
-			sh "chmod +x zowe_submit_output.sh && zowe_submit_output.sh"
-            }
+			sh "chmod +x $SCRIPT && $SCRIPT"
+				}
         }
     }
 }
