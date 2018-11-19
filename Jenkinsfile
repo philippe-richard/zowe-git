@@ -18,7 +18,7 @@ pipeline {
         stage('--submit job--') {
             steps {
                 sh "echo 'submitting job to mainframe via zowe'"
-				sh "chmod +x zowe_submit_job.sh && zowe_submit_job.sh"
+				sh "chmod +x zowe_submit_job1.sh && zowe_submit_job1.sh"
 		            }
         }
         stage('--Show job output--') {
