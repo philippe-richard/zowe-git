@@ -3,28 +3,28 @@ set +x
 #zowe zosmf check status --zosmf-profile tx9
 #zowe zos-jobs submit data-set "prichar.x9.jcl(iefbr14)" -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
 echo "Downloading the IEFBR14 program"
-zowe files dl ds "prichar.x9.jcl(iefbr14)" -f iefbr14.jcl 
+zowe files dl ds "prichar.x9.jcl(iefbr14)" -f iefbr14.jcl --zosmf-profile tx9
 echo "Editing iefbr14 locally to update it"
 echo ""
 #notepad iefbr14.jcl 
 echo "Uploading the IEFBR14 program"
-zowe files ul ftds iefbr14.jcl "prichar.x9.jcl(iefbr14)"
+zowe files ul ftds iefbr14.jcl "prichar.x9.jcl(iefbr14)" --zosmf-profile tx9
 
 echo ""
 echo "Submitting the iefbr14 program"
-zowe zos-jobs sub lf iefbr14.jcl --vasc
+zowe zos-jobs sub lf iefbr14.jcl --vasc --zosmf-profile tx9
 tries=20
 wait=5
 function submitJCL () {
     ds=$1
 
     echo 'zowe zos-jobs submit data-set "'$ds'" --rff jobid --rft string'
-    jobid=`zowe zos-jobs submit data-set $ds --rff jobid --rft string`
+    jobid=`zowe zos-jobs submit data-set $ds --rff jobid --rft string --zosmf-profile tx9`
     echo $jobid
     echo ''
 
     echo 'zowe zos-jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
-    retcode=`zowe zos-jobs view job-status-by-jobid $jobid --rff retcode --rft string`
+    retcode=`zowe zos-jobs view job-status-by-jobid $jobid --rff retcode --rft string --zosmf-profile tx9`
     echo $retcode
     echo ''
     
@@ -34,7 +34,7 @@ function submitJCL () {
         sleep $wait
         
         echo 'zowe zos-jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
-        retcode=`zowe zos-jobs view job-status-by-jobid $jobid --rff retcode --rft string`
+        retcode=`zowe zos-jobs view job-status-by-jobid $jobid --rff retcode --rft string --zosmf-profile tx9`
         echo $retcode
         echo ''
     done
