@@ -10,6 +10,7 @@ pipeline {
 			 timeout(time: 2, unit: 'MINUTES') {
                     echo 'Setup Profile Credentials'
 				    echo 'Providing credentials to zowe mainframe'
+					echo 'creds' $CREDENTIALS_USR $CREDENTIALS_PSW
 				sh "chmod +x $SCRIPT && $SCRIPT"
 		            }
 			  }
