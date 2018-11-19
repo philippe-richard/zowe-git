@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set +x
+#zowe zosmf check status --zosmf-profile tx9
+#zowe zos-jobs submit data-set "prichar.x9.jcl(iefbr14)" -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
+echo "Downloading the IEFBR14 program"
+zowe files dl ds "prichar.x9.jcl(iefbr14)" -f iefbr14.jcl 
+echo "Editing iefbr14 locally to update it"
+echo ""
+#notepad iefbr14.jcl 
+echo "Uploading the IEFBR14 program"
+zowe files ul ftds iefbr14.jcl "prichar.x9.jcl(iefbr14)"
+
+echo ""
+echo "Submitting the iefbr14 program"
+zowe jobs sub lf iefbr14.jcl --vasc
+tries=20
+wait=5
+function submitJCL () {
+    ds=$1
+
+    echo 'zowe jobs submit data-set "'$ds'" --rff jobid --rft string'
+    jobid=`zowe jobs submit data-set $ds --rff jobid --rft string`
+    echo $jobid
+    echo ''
+
+    echo 'zowe jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
+    retcode=`zowe jobs view job-status-by-jobid $jobid --rff retcode --rft string`
+    echo $retcode
+    echo ''
+    
+    counter=0
+    while (("$counter" < $tries)) && [ "$retcode" == "null" ]; do
+        counter=$((counter + 1))
+        sleep $wait
+        
+        echo 'zowe jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
+        retcode=`zowe jobs view job-status-by-jobid $jobid --rff retcode --rft string`
+        echo $retcode
+        echo ''
+    done
+	
+	#echo 'job completede in OUTPUT status. Final result of job:'
+	#zowe jobs list spool-files-by-jobid $jobid
+	#zowe jobs view sfbi $jobid 2
+	#zowe jobs view sfbi $jobid 3
+	#zowe jobs view sfbi $jobid 4
+}
+
+submitJCL "PRICHAR.X9.JCL(IEFBR14)"
