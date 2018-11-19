@@ -18,6 +18,7 @@ pipeline {
         stage('--submit job--') {
 		environment {
               SCRIPT = "./zowe_submit_job.sh"
+			   CREDENTIALS = credentials('zowe-credentials')
               		}
             steps {
                 sh "echo 'submitting job to mainframe via zowe'"
@@ -27,6 +28,7 @@ pipeline {
         stage('--Show job output--') {
 		environment {
               SCRIPT = "./zowe_submit_job.sh"
+			   CREDENTIALS = credentials('zowe-credentials')
               		}
 		  steps {
             sh "echo 'Showing mainframe job output via zowe'"
