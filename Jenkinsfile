@@ -27,7 +27,7 @@ pipeline {
         }
         stage('--Show job output--') {
 		environment {
-              SCRIPT = "./zowe_submit_job.sh"
+              SCRIPT = "./zowe_submit_output.sh"
 			   CREDENTIALS = credentials('zowe-credentials')
               		}
 		  steps {
