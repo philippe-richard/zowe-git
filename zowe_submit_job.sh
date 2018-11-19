@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set +x
-zowe profiles create zosmf-profile tx9 --host 9.212.128.238 --port 9143 -u $CREDENTIALS_USR -p $CREDENTIALS_PSW --reject-unauthorized false --overwrite
+#zowe profiles create zosmf-profile tx9 --host 9.212.128.238 --port 9143 -u $CREDENTIALS_USR -p $CREDENTIALS_PSW --reject-unauthorized false --overwrite
 echo " zosmf check status"
-zowe zosmf check status --zosmf-profile tx9
-#zowe zos-jobs submit data-set "prichar.x9.jcl(iefbr14)" -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
+#zowe zosmf check status --zosmf-profile tx9 -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
+zowe zos-jobs submit data-set "prichar.x9.jcl(iefbr14)" -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
 echo "Downloading the IEFBR14 program"
-zowe files dl ds "prichar.x9.jcl(iefbr14)" -f iefbr14.jcl -u $CREDENTIALS_USR -p $CREDENTIALS_PSW --reject-unauthorized false
+zowe files dl ds "prichar.x9.jcl(iefbr14)" -f iefbr14.jcl -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
 echo "Editing iefbr14 locally to update it"
 echo ""
 #notepad iefbr14.jcl 
