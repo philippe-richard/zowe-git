@@ -4,18 +4,20 @@ pipeline {
         stage('---credentials---') {
             steps {
                 sh "echo 'Providing credentials to zowe mainframe'"
-		sh "zowe_submit_cred.sh"
+				sh "zowe_submit_cred.sh"
 		            }
         }
         stage('--submit job--') {
             steps {
                 sh "echo 'submitting job to mainframe via zowe'"
-		sh "zowe_submit_job.sh"
+				sh "zowe_submit_job.sh"
 		            }
         }
         stage('--Show job output--') {
+		  steps {
             sh "echo 'Showing mainframe job output via zowe'"
-		sh "zowe_submit_output.sh"
+			sh "zowe_submit_output.sh"
             }
         }
     }
+}
