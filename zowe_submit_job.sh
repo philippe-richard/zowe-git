@@ -12,19 +12,19 @@ zowe files ul ftds iefbr14.jcl "prichar.x9.jcl(iefbr14)"
 
 echo ""
 echo "Submitting the iefbr14 program"
-zowe jobs sub lf iefbr14.jcl --vasc
+zowe zos-jobs sub lf iefbr14.jcl --vasc
 tries=20
 wait=5
 function submitJCL () {
     ds=$1
 
-    echo 'zowe jobs submit data-set "'$ds'" --rff jobid --rft string'
-    jobid=`zowe jobs submit data-set $ds --rff jobid --rft string`
+    echo 'zowe zos-jobs submit data-set "'$ds'" --rff jobid --rft string'
+    jobid=`zowe zos-jobs submit data-set $ds --rff jobid --rft string`
     echo $jobid
     echo ''
 
-    echo 'zowe jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
-    retcode=`zowe jobs view job-status-by-jobid $jobid --rff retcode --rft string`
+    echo 'zowe zos-jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
+    retcode=`zowe zos-jobs view job-status-by-jobid $jobid --rff retcode --rft string`
     echo $retcode
     echo ''
     
@@ -33,17 +33,17 @@ function submitJCL () {
         counter=$((counter + 1))
         sleep $wait
         
-        echo 'zowe jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
-        retcode=`zowe jobs view job-status-by-jobid $jobid --rff retcode --rft string`
+        echo 'zowe zos-jobs view job-status-by-jobid' $jobid '--rff retcode --rft string'
+        retcode=`zowe zos-jobs view job-status-by-jobid $jobid --rff retcode --rft string`
         echo $retcode
         echo ''
     done
 	
 	#echo 'job completede in OUTPUT status. Final result of job:'
-	#zowe jobs list spool-files-by-jobid $jobid
-	#zowe jobs view sfbi $jobid 2
-	#zowe jobs view sfbi $jobid 3
-	#zowe jobs view sfbi $jobid 4
+	#zowe zos-jobs list spool-files-by-jobid $jobid
+	#zowe zos-jobs view sfbi $jobid 2
+	#zowe zos-jobs view sfbi $jobid 3
+	#zowe zos-jobs view sfbi $jobid 4
 }
 
 submitJCL "PRICHAR.X9.JCL(IEFBR14)"
