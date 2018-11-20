@@ -12,7 +12,9 @@ pipeline {
 			 timeout(time: 2, unit: 'MINUTES') {
                     echo 'Setup Profile Credentials'
 				    echo 'Providing credentials to zowe mainframe'
+					 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
 					echo "Creds:  ${env.CREDENTIALS_USR} ${env.CREDENTIALS_PSW}"
+					echo "Creds:  $CREDENTIALS_USR  $CREDENTIALS_PSW"
 					echo "zowe Creds:  ${env.ZOWE_OPT_USER} ${env.ZOWE_OPT_USER_PWD}"
 				sh "chmod +x $SCRIPT && $SCRIPT"
 		            }
