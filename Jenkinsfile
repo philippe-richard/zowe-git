@@ -1,12 +1,13 @@
 pipeline {
     agent any
 	environment {
-              SCRIPT = "./zowe_submit_cred.sh"
-              CREDENTIALS = credentials('zowe-credentials')
+                CREDENTIALS = credentials('zowe-credentials')
 					}
     stages {
         stage('---credentials---') {
-		
+		environment {
+              SCRIPT = "./zowe_submit_cred.sh"
+             					}
             steps {
 			 timeout(time: 2, unit: 'MINUTES') {
                     echo 'Setup Profile Credentials'
