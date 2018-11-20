@@ -2,6 +2,6 @@
 set +x
 echo 'jenkins'
 
-zowe profiles create zosmf-profile tx9 --host 9.212.128.238 --port 9143 -u prichar --pw s99arlat --ru false --overwrite
+zowe profiles create zosmf-profile tx9 --host 9.212.128.238 --port 9143 -u $userid --pw $password --ru false --overwrite
 
 #bright profiles create zosmf tso1 --host tso1 --port 443 -u $CREDENTIALS_USR -p $CREDENTIALS_PSW --no-ru
