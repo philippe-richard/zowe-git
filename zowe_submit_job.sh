@@ -50,7 +50,7 @@ submitJCL "PRICHAR.X9.JCL(IEFBR14)"
 	zowe zos-jobs view sfbi $jobid 2 
 	zowe zos-jobs view sfbi $jobid 3 
 	zowe zos-jobs view sfbi $jobid 4 
-echo "job id is : $jobid"
-echo "export jobid=$jobid > myenv"
+echo 'job id is :' $jobid
+echo 'export jobid='$jobid '> myenv'
   // stash away for later use
  stash 'myenv'
