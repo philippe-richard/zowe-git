@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('password')  {
 	steps {		
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'testpwd', usernameVariable: 'userid', passwordVariable: 'pasword>']])
+    withCredentials([usernamePassword(credentialsId: 'testpwd', usernameVariable: 'userid', passwordVariable: 'password')])
 	{
         sh './script.sh'
    	}
