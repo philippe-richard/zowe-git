@@ -51,5 +51,6 @@ submitJCL "PRICHAR.X9.JCL(IEFBR14)"
 	zowe zos-jobs view sfbi $jobid 3 -u prichar --pw s99arlat --ru false
 	zowe zos-jobs view sfbi $jobid 4 -u prichar --pw s99arlat --ru false
 echo 'job id is :' $jobid
-echo 'export jobid='$jobid '> myenv'
+echo 'WTO ' $jobid 'has executed'
+zowe console issue cmd "SE '$jobid' was submitted and completed by ZOWE" -u prichar --pw s99arlat --ru false
  
