@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('password')  {
 	steps {		
-    withCredentials([usernamePassword(credentialsId: 'testpwd', usernameVariable: 'userid', passwordVariable: 'password')])
+    withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
 	{
         sh './script.sh'
    	}
