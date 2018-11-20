@@ -19,9 +19,7 @@ pipeline {
             steps {
 			
 			 timeout(time: 2, unit: 'MINUTES') 
-			  withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
-			 {
-			
+						 {			
                     echo 'Setup Profile Credentials'
 				    echo 'Providing credentials to zowe mainframe'
 					 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
