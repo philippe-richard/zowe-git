@@ -17,6 +17,7 @@ pipeline {
               SCRIPT = "./zowe_submit_cred.sh"
              					}
             steps {
+			withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
 			 timeout(time: 2, unit: 'MINUTES') {
                     echo 'Setup Profile Credentials'
 				    echo 'Providing credentials to zowe mainframe'
