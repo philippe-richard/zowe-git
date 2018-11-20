@@ -52,5 +52,5 @@ echo 'job completed in OUTPUT status. Final result of job:'
 	zowe zos-jobs view sfbi $jobid 4 -u prichar --pw s99arlat --ru false
 echo 'job id is :' $jobid
 echo 'WTO ' $jobid 'has executed'
-zowe console issue cmd "SE '''$jobid'' was submitted and completed by ZOWE'" -u prichar --pw s99arlat --ru false
+zowe console issue cmd "SE '''$jobid'' was submitted and completed by ZOWE...'" -u prichar --pw s99arlat --ru false
  
