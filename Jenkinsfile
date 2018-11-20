@@ -33,5 +33,16 @@ pipeline {
                 }
             }
 		}
+		stage('Cleanup and inform') {
+            environment {
+                                SCRIPT = "./zowe_submit_output.sh"
+				            }
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    echo 'Final result of job'
+                    sh "chmod +x $SCRIPT && $SCRIPT"
+                }
+            }
+		}
     }
 }
