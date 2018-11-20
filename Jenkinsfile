@@ -7,18 +7,19 @@ pipeline {
         stage('password')  {
 	steps {		
     withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
-	{
+			{
         sh './script.sh'
-   	}
-	}
+			}
+			}
 	}
 		stage('---credentials---') {
 		environment {
               SCRIPT = "./zowe_submit_cred.sh"
-             					}
+             		}
             steps {
-			withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
+			
 			 timeout(time: 2, unit: 'MINUTES') {
+			 withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
                     echo 'Setup Profile Credentials'
 				    echo 'Providing credentials to zowe mainframe'
 					 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
