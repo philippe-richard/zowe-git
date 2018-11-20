@@ -15,25 +15,19 @@ pipeline {
 		            }
 			  }
         }
-        stage('--submit job--') {
-		environment {
-              SCRIPT = "./zowe_submit_job.sh"
-			   CREDENTIALS = credentials('zowe-credentials')
-              		}
+        
+        stage('Build - Deploy - Test') {
+            environment {
+                RUN_SCRIPT = "./run_demo.sh"
+                DEMO_SCRIPT = "./zowe_submit_job.sh"
+				CREDENTIALS = credentials('zowe-credentials')
+            }
             steps {
-                sh "echo 'submitting job to mainframe via zowe'"
-				sh "chmod +x $SCRIPT && $SCRIPT"
-		          }
-        }
-        stage('--Show job output--') {
-		environment {
-              SCRIPT = "./zowe_submit_output.sh"
-			   CREDENTIALS = credentials('zowe-credentials')
-              		}
-		  steps {
-            sh "echo 'Showing mainframe job output via zowe'"
-			sh "chmod +x $SCRIPT && $SCRIPT"
-				}
-        }
+                timeout(time: 4, unit: 'MINUTES') {
+                    echo 'Build - Deploy - Test'
+                    sh "chmod +x $RUN_SCRIPT && chmod +x $DEMO_SCRIPT && $RUN_SCRIPT"
+                }
+            }
+		}
     }
 }
