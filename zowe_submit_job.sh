@@ -45,7 +45,7 @@ function submitJCL () {
 }
 
 submitJCL "PRICHAR.X9.JCL(IEFBR14)"
-#echo 'job completede in OUTPUT status. Final result of job:'
+#echo 'job completed in OUTPUT status. Final result of job:'
 	zowe zos-jobs list spool-files-by-jobid $jobid 
 	zowe zos-jobs view sfbi $jobid 2 
 	zowe zos-jobs view sfbi $jobid 3 
