@@ -4,11 +4,14 @@ pipeline {
                 CREDENTIALS = credentials('zowe-credentials')
 					}
     stages {
-        stage('password') {
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'testpwd', usernameVariable: 'userid', passwordVariable: 'pasword>']]) {
+        stage('password')  {
+	steps {		
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'testpwd', usernameVariable: 'userid', passwordVariable: 'pasword>']])
+	{
         sh './script.sh'
-    }
-}
+   	}
+	}
+	}
 		stage('---credentials---') {
 		environment {
               SCRIPT = "./zowe_submit_cred.sh"
