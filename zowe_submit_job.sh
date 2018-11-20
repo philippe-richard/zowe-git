@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set +x
-#zowe profiles create zosmf-profile tx9 --host 9.212.128.238 --port 9143 -u $CREDENTIALS_USR -p $CREDENTIALS_PSW --reject-unauthorized false --overwrite
+zowe profiles create zosmf-profile tx9 --host 9.212.128.238 --port 9143 -u $CREDENTIALS_USR -p $CREDENTIALS_PSW --reject-unauthorized false --overwrite
 echo " zosmf check status"
 #zowe zosmf check status --zosmf-profile tx9 -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
 zowe zos-jobs submit data-set "prichar.x9.jcl(iefbr14)" -H 9.212.128.238 -P 9143 -u prichar --pw s99arlat --ru false
