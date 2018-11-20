@@ -2,8 +2,7 @@
 set +x
 
  // unstash the temp file and apply it
-                unstash 'myenv'
-                source ./myenv
+                 source ./myenv
 
                 // now continue on with variables set 
                 echo jobid is :  $jobid
