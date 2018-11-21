@@ -18,7 +18,7 @@ pipeline {
              		}
             steps {
 			
-			 timeout(time: 2, unit: 'MINUTES') 
+			 withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
 						 {			
                     echo 'Setup Profile Credentials'
 				    echo 'Providing credentials to zowe mainframe'
@@ -37,7 +37,8 @@ pipeline {
                 DEMO_SCRIPT = "./zowe_submit_job.sh"
 				            }
             steps {
-                timeout(time: 4, unit: 'MINUTES') {
+                withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
+				{
                     echo 'Build - Deploy - Test'
                     sh "chmod +x $RUN_SCRIPT && chmod +x $DEMO_SCRIPT && $RUN_SCRIPT"
                 }
