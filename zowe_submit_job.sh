@@ -53,5 +53,5 @@ echo 'job completed in OUTPUT status. Final result of job:'
 echo 'job id is :' $jobid
 echo 'WTO ' $jobid 'has executed'
 
-zowe console issue cmd "SE '''$jobid'' was submitted and completed by ZOWE...'" -u $userid --pw $password --ru false
+zowe console issue cmd "SE '$jobid was submitted and completed by ZOWE...'" -u $userid --pw $password --ru false
  
