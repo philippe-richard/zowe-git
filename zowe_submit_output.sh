@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+jobid = $@ 
+echo jobid is: $jobid 
 set +x
 
  
