@@ -27,12 +27,7 @@ pipeline {
 					echo "Creds:  $CREDENTIALS_USR  $CREDENTIALS_PSW"
 					echo "zowe Creds:  ${env.ZOWE_OPT_USER} ${env.ZOWE_OPT_USER_PWD}"
 				sh "chmod +x $SCRIPT && $SCRIPT"
-				script {
-          // trim removes leading and trailing whitespace from the string
-          myJob = readFile('jobid.txt').trim()
-						}
-        echo "${myJob}" // prints jobid
-		            }
+					     }
 			  }
         }
         
@@ -46,7 +41,11 @@ pipeline {
 				{
                     echo 'Build - Deploy - Test'
 					   echo "${myJob}" // prints jobid
-                    sh "chmod +x $RUN_SCRIPT && chmod +x $DEMO_SCRIPT && $RUN_SCRIPT ${myJob}"
+                    sh "chmod +x $RUN_SCRIPT && chmod +x $DEMO_SCRIPT && $RUN_SCRIPT"
+					script {
+                   myJob = readFile('jobid.txt').trim()
+						}
+        echo "${myJob}" 
                 }
             }
 		}
@@ -57,7 +56,7 @@ pipeline {
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
                     echo 'Final result of job'
-                    sh "chmod +x $SCRIPT && $SCRIPT"
+                    sh "chmod +x $SCRIPT && $SCRIPT ${myJob}"
                 }
             }
 		}
