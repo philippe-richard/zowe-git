@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export jobid = $@ 
+export jobid=$@ 
 echo jobid is: $jobid 
 set +x
 
