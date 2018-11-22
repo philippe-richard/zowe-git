@@ -51,7 +51,6 @@ echo 'job completed in OUTPUT status. Final result of job:'
 	zowe zos-jobs view sfbi $jobid 3 -u $userid --pw $password --ru false
 	zowe zos-jobs view sfbi $jobid 4 -u $userid --pw $password --ru false
 echo 'job id is :' $jobid
-touch jobid.txt
 echo $jobid > jobid.txt
 echo 'WTO ' $jobid 'has executed'
 
