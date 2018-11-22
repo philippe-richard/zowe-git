@@ -40,8 +40,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
 				{
                     echo 'Build - Deploy - Test'
-					   echo "${myJob}" // prints jobid
-                    sh "chmod +x $RUN_SCRIPT && chmod +x $DEMO_SCRIPT && $RUN_SCRIPT"
+					sh "chmod +x $RUN_SCRIPT && chmod +x $DEMO_SCRIPT && $RUN_SCRIPT"
 					script {
                    myJob = readFile('jobid.txt').trim()
 						}
@@ -55,6 +54,7 @@ pipeline {
 				            }
             steps {
                 timeout(time: 1, unit: 'MINUTES') {
+				 echo "${myJob}" 
                     echo 'Final result of job'
                     sh "chmod +x $SCRIPT && $SCRIPT ${myJob}"
                 }
