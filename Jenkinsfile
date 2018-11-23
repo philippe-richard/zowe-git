@@ -53,7 +53,8 @@ pipeline {
                                 SCRIPT = "./zowe_submit_output.sh"
 				            }
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
+               withCredentials([usernamePassword(credentialsId: 'zowe-credentials', usernameVariable: 'userid', passwordVariable: 'password')])
+			   {
 				 echo "${myJob}" 
                     echo 'Final result of job'
                     sh "chmod +x $SCRIPT && $SCRIPT ${myJob}"
